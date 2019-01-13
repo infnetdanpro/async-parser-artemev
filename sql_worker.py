@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 import os
 
-db_file = '{}\\test_db.db'.format(os.getcwd())
+db_file = '{}\\test_db.db'.format(os.getcwd()) #Windows
 engine = create_engine('sqlite:///{}'.format(db_file), echo=True)
 Base = declarative_base()
 
@@ -28,7 +28,6 @@ def sql_work(data_list):
 
     temp_obj = []
     for d in data_list:
-        print(d)
         temp_obj.append(Title(url=d, title=data_list[d]))
 
     try:

@@ -19,6 +19,7 @@ async def parse_page(data, url):
 
 async def main():
     #Page list может быть получен, например из базы (например, если пользователи загружают списки страниц для сбора с них данных)
+    #список может быть подан через Celery.
     page_list = [
             'http://www.omax.ru',
             'http://www.akkond.ru',
