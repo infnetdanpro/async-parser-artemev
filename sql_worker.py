@@ -1,8 +1,10 @@
 from sqlalchemy.orm import *
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
+import os
 
-engine = create_engine("sqlite:///D:\\Python37\\Scripts\\async_requests\\test_db.db", echo=True)
+db_file = '{}\\test_db.db'.format(os.getcwd())
+engine = create_engine('sqlite:///{}'.format(db_file), echo=True)
 Base = declarative_base()
 
 class Title(Base):
@@ -14,18 +16,19 @@ class Title(Base):
 
     def __repr__(self):
         return "<Row(id='{}', url='{}', title='{}')>".format(self.id, self.url, self.title)
-
-    def __init__(self):
-        self.metadata.create_all(engine)
+    
 
 #data_list должен быть списком
 def sql_work(data_list):
+    if os.path.isfile(db_file) == False:
+        Title.metadata.create_all(engine)
     title = Title()
     Session = sessionmaker(bind=engine)
     session = Session()
 
     temp_obj = []
     for d in data_list:
+        print(d)
         temp_obj.append(Title(url=d, title=data_list[d]))
 
     try:
